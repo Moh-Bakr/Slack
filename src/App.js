@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 import './App.css';
 import {
   BrowserRouter as Router,
@@ -6,6 +7,7 @@ import {
   Route
 } from "react-router-dom";
 import Header from './components/Header';
+import Sidebar from './components/Sidebar';
 
 function App() {
   return (
@@ -13,11 +15,14 @@ function App() {
       <Router>
         <>
           <Header />
-          <Switch>
-            <Route path="/">
+          <AppBody>
+            <Sidebar />
+            <Switch>
+              <Route path="/">
+              </Route>
+            </Switch>
+          </AppBody>
 
-            </Route>
-          </Switch>
         </>
       </Router>
 
@@ -27,3 +32,8 @@ function App() {
 }
 
 export default App;
+
+const AppBody = styled.div`
+display: flex;
+height: 100vh;
+`;
