@@ -1,12 +1,14 @@
 import {Button} from '@material-ui/core';
 import React, {useState} from 'react'
 import styled from 'styled-components';
-import {db} from "../firebase";
+import {auth, db} from "../firebase";
 import firebase from "firebase";
+import {useAuthState} from "react-firebase-hooks/auth";
 
 function ChatInput({channelName, channelId, chatRef}) {
 
     const [input, setInput] = useState("");
+    const [user] = useAuthState(auth);
 
     const sendMessage = e => {
         e.preventDefault(); // to prevent the refresh
@@ -18,8 +20,8 @@ function ChatInput({channelName, channelId, chatRef}) {
         db.collection('rooms').doc(channelId).collection('messages').add({
             message: input,
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-            user: "bakr",
-            userImage: "https://www.whatsappimages.in/wp-content/uploads/2021/07/Top-HD-sad-quotes-for-whatsapp-status-in-hindi-Pics-Images-Download-Free.gif"
+            user: user.displayName,
+            userImage: user.photoURL,
 
         });
         chatRef.current.scrollIntoView({

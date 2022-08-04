@@ -72,7 +72,7 @@ function Chat() {
                         channelId={roomId}
 
                     />
-                </> 
+                </>
             )}
 
 
