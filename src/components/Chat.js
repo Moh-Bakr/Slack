@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useRef} from 'react'
 import {useSelector} from 'react-redux'
 import styled from 'styled-components'
 import StarBorderOutlinedIcon from '@material-ui/icons/StarBorderOutlined';
@@ -16,7 +16,7 @@ function Chat() {
     const [roomDetails] = useDocument(
         roomId && db.collection('rooms').doc(roomId)
     )
-    const [roomMessages] = useCollection(
+    const [roomMessages, loading] = useCollection(
         roomId && db.collection("rooms")
             .doc(roomId)
             .collection("messages")
@@ -24,46 +24,58 @@ function Chat() {
     )
     // console.log(roomDetails?.data());
     // console.log(roomMessages);
+    const chatRef = useRef(null);
+
+    useEffect(() => {
+        chatRef?.current?.scrollIntoView({behavior: "smooth"});
+
+    }, [roomId, loading])
     return (
         <ChatContainer>
-            <>
-                <Header>
-                    <HeaderLeft>
-                        <h4>
-                            <strong>
-                                #{roomDetails?.data().name}
-                            </strong>
-                        </h4>
-                        <StarBorderOutlinedIcon/>
-                    </HeaderLeft>
+            {roomDetails && roomMessages && (
+                <>
+                    <Header>
+                        <HeaderLeft>
+                            <h4>
+                                <strong>
+                                    #{roomDetails?.data().name}
+                                </strong>
+                            </h4>
+                            <StarBorderOutlinedIcon/>
+                        </HeaderLeft>
 
-                    <HeaderRight>
-                        <p>
-                            <InfoOutlinedIcon/> Details
-                        </p>
-                    </HeaderRight>
-                </Header>
-                <ChatMessages>
-                    {roomMessages?.docs.map(doc => {
-                        const {message, timestamp, user, userImage} = doc.data();
-                        return (
-                            <Message
-                                key={doc.id}
-                                message={message}
-                                timestamp={timestamp}
-                                user={user}
-                                userImage={userImage}
-                            />
-                        );
-                    })}
-                </ChatMessages>
+                        <HeaderRight>
+                            <p>
+                                <InfoOutlinedIcon/> Details
+                            </p>
+                        </HeaderRight>
+                    </Header>
+                    <ChatMessages>
+                        {roomMessages?.docs.map(doc => {
+                            const {message, timestamp, user, userImage} = doc.data();
+                            return (
+                                <Message
+                                    key={doc.id}
+                                    message={message}
+                                    timestamp={timestamp}
+                                    user={user}
+                                    userImage={userImage}
+                                />
+                            );
+                        })}
+                        <ChatBottom ref={chatRef}/>
+                    </ChatMessages>
 
-                <ChatInput
-                    channelName={roomDetails?.data().name}
-                    channelId={roomId}
+                    <ChatInput
+                        chatRef={chatRef}
+                        channelName={roomDetails?.data().name}
+                        channelId={roomId}
 
-                />
-            </>
+                    />
+                </> 
+            )}
+
+
         </ChatContainer>
     )
 }
@@ -115,5 +127,8 @@ const HeaderRight = styled.div`
 `;
 
 const ChatMessages = styled.div`
+  padding-bottom: 200px;
+`;
+const ChatBottom = styled.div`
 
 `;

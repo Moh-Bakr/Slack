@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import {db} from "../firebase";
 import firebase from "firebase";
 
-function ChatInput({channelName, channelId}) {
+function ChatInput({channelName, channelId, chatRef}) {
 
     const [input, setInput] = useState("");
 
@@ -22,12 +22,16 @@ function ChatInput({channelName, channelId}) {
             userImage: "https://www.whatsappimages.in/wp-content/uploads/2021/07/Top-HD-sad-quotes-for-whatsapp-status-in-hindi-Pics-Images-Download-Free.gif"
 
         });
+        chatRef.current.scrollIntoView({
+            behavior: "smooth",
+        });
         setInput("");
     };
     return (
         <ChatInputContainer>
             <form>
-                <input value={input} onChange={(e) => setInput(e.target.value)} placeholder={`Message #${channelName}`}/>
+                <input value={input} onChange={(e) => setInput(e.target.value)}
+                       placeholder={`Message #${channelName}`}/>
                 <Button hidden type='submit' onClick={sendMessage}>
                     SEND
                 </Button>
