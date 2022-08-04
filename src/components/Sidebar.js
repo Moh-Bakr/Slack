@@ -32,19 +32,21 @@ function Sidebar() {
                         {user.displayName}
                     </h3>
                 </SidebarInfo>
-                <CreateIcon/>
+                <InsertCommentIcon/>
+                {/*<CreateIcon/>*/}
             </SidebarHeader>
 
-            <SidebarOption Icon={InsertCommentIcon} title="Threads"/>
-            <SidebarOption Icon={InboxIcon} title="Mentions & Reactions"/>
-            <SidebarOption Icon={DraftsIcon} title="SavedItems"/>
-            <SidebarOption Icon={BookmarkBorderIcon} title="Channel browser"/>
-            <SidebarOption Icon={PeopleAltIcon} title="People $ User groups"/>
-            <SidebarOption Icon={AppsIcon} title="Apps"/>
-            <SidebarOption Icon={FileCopyIcon} title="File browser"/>
-            <SidebarOption Icon={ExpandLessIcon} title="Show less"/>
-            <hr/>
-            <SidebarOption Icon={ExpandMoreIcon} title="Channels"/>
+            {/*<SidebarOption Icon={InsertCommentIcon} title="Threads"/>*/}
+            {/*<SidebarOption Icon={InboxIcon} title="Mentions & Reactions"/>*/}
+            {/*<SidebarOption Icon={DraftsIcon} title="SavedItems"/>*/}
+            {/*<SidebarOption Icon={BookmarkBorderIcon} title="Channel browser"/>*/}
+            {/*<SidebarOption Icon={PeopleAltIcon} title="People $ User groups"/>*/}
+            {/*<SidebarOption Icon={AppsIcon} title="Apps"/>*/}
+            {/*<SidebarOption Icon={FileCopyIcon} title="File browser"/>*/}
+            {/*<SidebarOption Icon={ExpandLessIcon} title="Show less"/>*/}
+            {/*<hr/>*/}
+            {/*<SidebarOption Icon={ExpandMoreIcon} title="Channels"/>*/}
+            <SidebarOption title="Channels"/>
             <hr/>
             <SidebarOption Icon={AddIcon} addChannelOption title="Add Channel"/>
             {channels?.docs.map(doc => (
